@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iss.dao.RecruitBaseInfoDAO">
+	<resultMap id="BaseResultMap" type="com.iss.modal.RecruitBaseInfo">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="position" jdbcType="VARCHAR" property="position" />
+		<result column="company" jdbcType="VARCHAR" property="company" />
+		<result column="workPlace" jdbcType="VARCHAR" property="workplace" />
+		<result column="salary" jdbcType="VARCHAR" property="salary" />
+		<result column="date" jdbcType="VARCHAR" property="date" />
+		<result column="batch" jdbcType="VARCHAR" property="batch" />
+		<result column="page" jdbcType="VARCHAR" property="page" />
+		<result column="urlId" jdbcType="VARCHAR" property="urlid" />
+	</resultMap>
+	<resultMap type="com.iss.modal.RecruitBaseInfo" id="ResultWithRecruitOtherInfo">
+		<association property="recruitOtherInfo" column="id"
+			fetchType="lazy" select="com.iss.dao.RecruitOtherInfoDAO.selectByPrimaryKey"
+			javaType="com.iss.modal.RecruitOtherInfo" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,position, company, workPlace, salary, date, batch,
+		page, urlId
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from recruitdatabaseinfo
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectAllRecruit" parameterType="java.lang.String"
+		resultMap="ResultWithRecruitOtherInfo">
+		select
+		<include refid="Base_Column_List" />
+		from recruitdatabaseinfo
+		<where>
+			<if test="position != null">
+				and position=#{position,jdbcType=VARCHAR}
+			</if>
+			<if test="company != null">
+				and company=#{company,jdbcType=VARCHAR}
+			</if>
+			<if test="workplace != null">
+				and workplace=#{workplace,jdbcType=VARCHAR}
+			</if>
+			<if test="salary != null">
+				and salary=#{salary,jdbcType=VARCHAR}
+			</if>
+			<if test="urlid != null">
+				and urlid=#{urlid,jdbcType=VARCHAR}
+			</if>
+		</where>
+		order by page,batch,date desc
+	</select>
+	<select id="selectAllRecruit2" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from recruitdatabaseinfo
+		<where>
+			<if test="position != null">
+				and position=#{position,jdbcType=VARCHAR}
+			</if>
+			<if test="company != null">
+				and company=#{company,jdbcType=VARCHAR}
+			</if>
+			<if test="workplace != null">
+				and workplace=#{workplace,jdbcType=VARCHAR}
+			</if>
+			<if test="salary != null">
+				and salary=#{salary,jdbcType=VARCHAR}
+			</if>
+			<if test="urlid != null">
+				and urlid=#{urlid,jdbcType=VARCHAR}
+			</if>
+		</where>
+		order by page,batch,date desc
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		recruitdatabaseinfo
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.iss.modal.RecruitBaseInfo">
+		insert into
+		recruitdatabaseinfo (id, position, company,
+		workPlace, salary, date,
+		batch, page, urlId)
+		values (#{id,jdbcType=INTEGER},
+		#{position,jdbcType=VARCHAR},
+		#{company,jdbcType=VARCHAR},
+		#{workplace,jdbcType=VARCHAR}, #{salary,jdbcType=VARCHAR},
+		#{date,jdbcType=VARCHAR},
+		#{batch,jdbcType=VARCHAR},
+		#{page,jdbcType=VARCHAR},
+		#{urlid,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.iss.modal.RecruitBaseInfo">
+		insert into recruitdatabaseinfo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="position != null">
+				position,
+			</if>
+			<if test="company != null">
+				company,
+			</if>
+			<if test="workplace != null">
+				workPlace,
+			</if>
+			<if test="salary != null">
+				salary,
+			</if>
+			<if test="date != null">
+				date,
+			</if>
+			<if test="batch != null">
+				batch,
+			</if>
+			<if test="page != null">
+				page,
+			</if>
+			<if test="urlid != null">
+				urlId,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="position != null">
+				#{position,jdbcType=VARCHAR},
+			</if>
+			<if test="company != null">
+				#{company,jdbcType=VARCHAR},
+			</if>
+			<if test="workplace != null">
+				#{workplace,jdbcType=VARCHAR},
+			</if>
+			<if test="salary != null">
+				#{salary,jdbcType=VARCHAR},
+			</if>
+			<if test="date != null">
+				#{date,jdbcType=VARCHAR},
+			</if>
+			<if test="batch != null">
+				#{batch,jdbcType=VARCHAR},
+			</if>
+			<if test="page != null">
+				#{page,jdbcType=VARCHAR},
+			</if>
+			<if test="urlid != null">
+				#{urlid,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.iss.modal.RecruitBaseInfo">
+		update recruitdatabaseinfo
+		<set>
+			<if test="position != null">
+				position = #{position,jdbcType=VARCHAR},
+			</if>
+			<if test="company != null">
+				company = #{company,jdbcType=VARCHAR},
+			</if>
+			<if test="workplace != null">
+				workPlace = #{workplace,jdbcType=VARCHAR},
+			</if>
+			<if test="salary != null">
+				salary = #{salary,jdbcType=VARCHAR},
+			</if>
+			<if test="date != null">
+				date = #{date,jdbcType=VARCHAR},
+			</if>
+			<if test="batch != null">
+				batch = #{batch,jdbcType=VARCHAR},
+			</if>
+			<if test="page != null">
+				page = #{page,jdbcType=VARCHAR},
+			</if>
+			<if test="urlid != null">
+				urlId = #{urlid,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.iss.modal.RecruitBaseInfo">
+		update
+		recruitdatabaseinfo
+		set position = #{position,jdbcType=VARCHAR},
+		company = #{company,jdbcType=VARCHAR},
+		workPlace =
+		#{workplace,jdbcType=VARCHAR},
+		salary = #{salary,jdbcType=VARCHAR},
+		date = #{date,jdbcType=VARCHAR},
+		batch = #{batch,jdbcType=VARCHAR},
+		page = #{page,jdbcType=VARCHAR},
+		urlId = #{urlid,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="truncateTableData">
+		truncate table recruitdatabaseinfo
+	</update>
+</mapper>

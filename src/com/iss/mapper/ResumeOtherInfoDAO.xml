@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iss.dao.ResumeOtherInfoDAO">
+  <resultMap id="BaseResultMap" type="com.iss.modal.ResumeOtherInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="money" jdbcType="VARCHAR" property="money" />
+    <result column="experience" jdbcType="VARCHAR" property="experience" />
+    <result column="edu" jdbcType="VARCHAR" property="edu" />
+    <result column="willJob" jdbcType="VARCHAR" property="willjob" />
+    <result column="nature" jdbcType="VARCHAR" property="nature"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, money, experience, edu, willJob,nature
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from resumedataotherinfo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from resumedataotherinfo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.iss.modal.ResumeOtherInfo">
+    insert into resumedataotherinfo (id, money, experience, 
+      edu, willJob,nature)
+    values (#{id,jdbcType=INTEGER}, #{money,jdbcType=VARCHAR}, #{experience,jdbcType=VARCHAR}, 
+      #{edu,jdbcType=VARCHAR}, #{willjob,jdbcType=VARCHAR},#{nature,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.iss.modal.ResumeOtherInfo">
+    insert into resumedataotherinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="experience != null">
+        experience,
+      </if>
+      <if test="edu != null">
+        edu,
+      </if>
+      <if test="willjob != null">
+        willJob,
+      </if>
+      <if test="nature != null">
+        nature,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="experience != null">
+        #{experience,jdbcType=VARCHAR},
+      </if>
+      <if test="edu != null">
+        #{edu,jdbcType=VARCHAR},
+      </if>
+      <if test="willjob != null">
+        #{willjob,jdbcType=VARCHAR},
+      </if>
+      <if test="nature != null">
+        #{nature,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iss.modal.ResumeOtherInfo">
+    update resumedataotherinfo
+    <set>
+      <if test="money != null">
+        money = #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="experience != null">
+        experience = #{experience,jdbcType=VARCHAR},
+      </if>
+      <if test="edu != null">
+        edu = #{edu,jdbcType=VARCHAR},
+      </if>
+      <if test="willjob != null">
+        willJob = #{willjob,jdbcType=VARCHAR},
+      </if>
+      <if test="nature != null">
+        nature = #{nature,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iss.modal.ResumeOtherInfo">
+    update resumedataotherinfo
+    set money = #{money,jdbcType=VARCHAR},
+      experience = #{experience,jdbcType=VARCHAR},
+      edu = #{edu,jdbcType=VARCHAR},
+      willJob = #{willjob,jdbcType=VARCHAR},
+      nature = #{nature,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="truncateTableData">
+		truncate table resumedataotherinfo;
+	</update>
+</mapper>

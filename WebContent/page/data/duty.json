@@ -1,0 +1,23 @@
+{"total":28,"rows":[
+	{
+		"dutyId" : 1,
+		"dutyName" : "总经理",
+		"dutydes": "",
+		"deptName" : 2,
+		"superName" : ""
+	},
+	{
+		"dutyId"  : 2,
+		"dutyName" : "主管",
+		"dutydes" : "",
+		"deptName" : 3,
+		"superName" : ""
+	},
+	{
+		"dutyId"  : 3,
+		"dutyName" : "普通员工",
+		"dutydes" : null,
+		"deptName" : 4,
+		"superName" : null
+	}
+]}

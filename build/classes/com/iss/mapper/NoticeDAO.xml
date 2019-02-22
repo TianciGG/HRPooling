@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iss.dao.NoticeDAO">
+  <resultMap id="BaseResultMap" type="com.iss.modal.NoticeWrapper">
+    <id column="noticeId" jdbcType="INTEGER" property="noticeid" />
+    <result column="noticeTitle" jdbcType="VARCHAR" property="noticetitle" />
+<!--     <result column="noticeTypeId" jdbcType="INTEGER" property="noticetypeid" /> -->
+    <result column="publishUserId" jdbcType="INTEGER" property="publishuserid" />
+    <result column="publishTime" jdbcType="TIMESTAMP" property="publishtime" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <association property="noticetype" column="noticeTypeId" javaType="com.iss.modal.NoticeType" select="com.iss.dao.NoticeTypeDAO.selectByPrimaryKey"></association>
+   
+  </resultMap>
+  <sql id="Base_Column_List">
+    noticeId, noticeTitle, noticeTypeId, publishUserId, publishTime, content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from notice
+    where noticeId = #{noticeid,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查询Table表数据 -->
+  <select id="selectAllNotice" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from notice
+  </select>
+ 
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from notice
+    where noticeId = #{noticeid,jdbcType=INTEGER}
+  </delete>
+  <!-- 删除发布信息 -->
+   <delete id="delete" parameterType="java.lang.Integer">
+    delete from notice
+    where noticeId = #{noticeid,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.iss.modal.Notice">
+    insert into notice (noticeId, noticeTitle, noticeTypeId, 
+      publishUserId, publishTime, content
+      )
+    values (#{noticeid,jdbcType=INTEGER}, #{noticetitle,jdbcType=VARCHAR}, #{noticetypeid,jdbcType=INTEGER}, 
+      #{publishuserid,jdbcType=INTEGER}, #{publishtime,jdbcType=TIMESTAMP}, #{content,jdbcType=VARCHAR}
+      )
+  </insert>
+   <!-- 添加发布信息 -->
+   <insert id="save" parameterType="com.iss.modal.Notice">
+    insert into notice (noticeId, noticeTitle, noticeTypeId, 
+      publishUserId, publishTime, content
+      )
+    values (#{noticeid,jdbcType=INTEGER}, #{noticetitle,jdbcType=VARCHAR}, #{noticetypeid,jdbcType=INTEGER}, 
+      #{publishuserid,jdbcType=INTEGER}, #{publishtime,jdbcType=TIMESTAMP}, #{content,jdbcType=VARCHAR}
+      )
+  </insert>
+   
+  <insert id="insertSelective" parameterType="com.iss.modal.Notice">
+    insert into notice
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="noticeid != null">
+        noticeId,
+      </if>
+      <if test="noticetitle != null">
+        noticeTitle,
+      </if>
+      <if test="noticetypeid != null">
+        noticeTypeId,
+      </if>
+      <if test="publishuserid != null">
+        publishUserId,
+      </if>
+      <if test="publishtime != null">
+        publishTime,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="noticeid != null">
+        #{noticeid,jdbcType=INTEGER},
+      </if>
+      <if test="noticetitle != null">
+        #{noticetitle,jdbcType=VARCHAR},
+      </if>
+      <if test="noticetypeid != null">
+        #{noticetypeid,jdbcType=INTEGER},
+      </if>
+      <if test="publishuserid != null">
+        #{publishuserid,jdbcType=INTEGER},
+      </if>
+      <if test="publishtime != null">
+        #{publishtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iss.modal.Notice">
+    update notice
+    <set>
+      <if test="noticetitle != null">
+        noticeTitle = #{noticetitle,jdbcType=VARCHAR},
+      </if>
+      <if test="noticetypeid != null">
+        noticeTypeId = #{noticetypeid,jdbcType=INTEGER},
+      </if>
+      <if test="publishuserid != null">
+        publishUserId = #{publishuserid,jdbcType=INTEGER},
+      </if>
+      <if test="publishtime != null">
+        publishTime = #{publishtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where noticeId = #{noticeid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iss.modal.Notice">
+    update notice
+    set noticeTitle = #{noticetitle,jdbcType=VARCHAR},
+      noticeTypeId = #{noticetypeid,jdbcType=INTEGER},
+      publishUserId = #{publishuserid,jdbcType=INTEGER},
+      publishTime = #{publishtime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=VARCHAR}
+    where noticeId = #{noticeid,jdbcType=INTEGER}
+  </update>
+</mapper>

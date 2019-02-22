@@ -1,0 +1,30 @@
+{
+	"total": 28,
+	"rows":[
+	{
+		"workexperienceId" : 1,
+		"startTime" : "2001-06-20",
+		"company" : "软通",
+		"position" : "普通员工",
+		"endTime" : "2006-09-01",
+		"basicInfoId" : "1"
+	},
+	{
+		"workexperienceId" : 2,
+		"startTime" : "2006-06-20",
+		"company" : "非凡科技",
+		"position" : "主管",
+		"endTime" : "2009-09-01",
+		"basicInfoId" : "1"
+	},
+	{
+		"workexperienceId" : 3,
+		"startTime" : "2009-06-20",
+		"company" : "智力",
+		"position" : "普通员工",
+		"endTime" : "2013-09-01",
+		"basicInfoId" : "1"
+	}
+]
+
+}

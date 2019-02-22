@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<!-- 引入配置文件 -->
+	<!-- <properties resource="init.properties" ></properties> -->
+	<!-- 指定数据连接驱动jar地址 -->
+	<classPathEntry
+		location="E:\EclipseLib\mysql-connector-java-5.1.23-bin.jar" />
+	<context id="mysql">
+		<!-- 注释 -->
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" /><!-- 是否取消注释 -->
+			<property name="suppressDate" value="false" /> <!-- 是否生成注释代时间戳 -->
+		</commentGenerator>
+
+
+		<!-- jdbc连接 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://127.0.0.1:3306/hrpooling?useSSL=true"
+			userId="root" password="root" />
+
+
+
+		<!-- 生成实体类，model/entity -->
+		<javaModelGenerator targetPackage="com.iss.modal"
+			targetProject="HRPooling\src">
+			<!-- 是否在当前路径下新加一层schema,eg：fase路径com.iss.user.model， true:com.iss.user.model.[schemaName] -->
+			<property name="enableSubPackages" value="false" />
+			<!-- 是否针对string类型的字段在set的时候进行trim调用 -->
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+
+		<!-- 生成mapxml文件 ,也就是mapper -->
+		<sqlMapGenerator targetPackage="com.iss.mapper"
+			targetProject="HRPooling\src">
+			<!-- 是否在当前路径下新加一层schemama -->
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+
+
+		<!-- 生成mapxml对应client，也就是接口dao -->
+		<javaClientGenerator targetPackage="com.iss.dao"
+			targetProject="HRPooling\src" type="XMLMAPPER">
+			<!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
+			<property name="enableSubPackages" value="false" />
+		</javaClientGenerator>
+
+		<!-- 配置表信息 -->
+		<!-- <table  tableName="t_basicinfo"
+			domainObjectName="Resume" enableCountByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			enableUpdateByExample="false">
+			schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample 
+				是否生成 example类
+
+			忽略列，不生成bean 字段
+			<ignoreColumn column="FRED" />
+			指定列的java数据类型
+
+		</table>
+		
+		
+		<table  tableName="t_education"
+			domainObjectName="EducationInfo" enableCountByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			enableUpdateByExample="false">
+			schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample 
+				是否生成 example类
+
+			忽略列，不生成bean 字段
+			<ignoreColumn column="FRED" />
+			指定列的java数据类型
+
+		</table>
+		
+		
+			<table  tableName="t_workexperience"
+			domainObjectName="WorkExperience" enableCountByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			enableUpdateByExample="false">
+			schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample 
+				是否生成 example类
+
+			忽略列，不生成bean 字段
+			<ignoreColumn column="FRED" />
+			指定列的java数据类型
+
+		</table> -->
+		<table schema="hrpooling" tableName="recruitdatabaseinfo" mapperName="RecruitBaseInfoDAO"
+			domainObjectName="RecruitBaseInfo" enableCountByExample="false"
+			enableSelectByExample="false" enableDeleteByExample="false"
+			enableUpdateByExample="false">
+		</table>
+		<table schema="hrpooling" tableName="recruitdataotherinfo" mapperName="RecruitOtherInfoDAO"
+			domainObjectName="RecruitOtherInfo" enableCountByExample="false"
+			enableSelectByExample="false" enableDeleteByExample="false"
+			enableUpdateByExample="false">
+		</table>
+		<table schema="hrpooling" tableName="recruiturl" mapperName="RecruitUrlDAO"
+			domainObjectName="RecruitUrl" enableCountByExample="false"
+			enableSelectByExample="false" enableDeleteByExample="false"
+			enableUpdateByExample="false">
+		</table>
+		
+		<table schema="hrpooling" tableName="resumedatabaseinfo" mapperName="ResumeBaseInfoDAO"
+			domainObjectName="ResumeBaseInfo" enableCountByExample="false"
+			enableSelectByExample="false" enableDeleteByExample="false"
+			enableUpdateByExample="false">
+		</table>
+		<table schema="hrpooling" tableName="resumedataotherinfo" mapperName="ResumeOtherInfoDAO"
+			domainObjectName="ResumeOtherInfo" enableCountByExample="false"
+			enableSelectByExample="false" enableDeleteByExample="false"
+			enableUpdateByExample="false">
+		</table>
+		<table schema="hrpooling" tableName="resumeurl" mapperName="ResumeUrlDAO"
+			domainObjectName="ResumeUrl" enableCountByExample="false"
+			enableSelectByExample="false" enableDeleteByExample="false"
+			enableUpdateByExample="false">
+		</table>
+		
+		
+		
+	</context>
+</generatorConfiguration>

@@ -1,0 +1,14 @@
+#dg{
+	width: 100%;
+	height: auto;
+}
+
+
+#w ul li{
+	margin-top: 10px;
+	margin-left: 90px;
+}
+
+#w ul li a{
+	margin-left: 180px;
+}

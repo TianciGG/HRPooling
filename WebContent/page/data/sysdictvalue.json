@@ -1,0 +1,15 @@
+{"total":28,"rows":[
+	{"id" : 1,"typeid" : "1","value" : "0","display" : "大专","desc" : "NULL"},
+	{"id" : 2,"typeid" : "1","value" : "0","display" : "汉族","desc" : ""},
+	{"id" : 3,"typeid" : "1","value" : "1","display" : "藏族","desc" : ""},
+    {"id" : 4,"typeid" : "2","value" : "0","display" : "山西","desc" : ""},
+    {"id" : 5,"typeid" : "3","value" : "0","display" : "团员","desc" : ""},
+    {"id" : 6,"typeid" : "4","value" : "0","display" : "在职","desc" : ""},
+    {"id" : 7,"typeid" : "4","value" : "1","display" : "离职","desc" : ""}
+]}
+
+
+
+
+
+

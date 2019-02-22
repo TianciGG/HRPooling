@@ -1,0 +1,37 @@
+{
+	"total": 28,
+	"rows":[
+	{
+		"eduId" : 1,
+		"startTime" : "2001-06-20",
+		"endTime" : "2006-09-01",
+		"school" : "小学",
+		"major" : "",
+		"degreeId" : 0
+	},
+	{
+		"eduId" : 2,
+		"startTime" : "2006-09-20",
+		"endTime" : "2009-06-01",
+		"school" : "初中",
+		"major" : "",
+		"degreeId" : 0
+	},
+	{
+		"eduId" : 3,
+		"startTime" : "2009-06-20",
+		"endTime" : "2013-09-01",
+		"school" : "高中",
+		"major" : "",
+		"degreeId" : 0
+	},
+	{
+		"eduId" : 4,
+		"startTime" : "2013-06-20",
+		"endTime" : "2017-09-01",
+		"school" : "大学",
+		"major" : "计算机",
+		"degreeId" : 0
+	}
+]
+}

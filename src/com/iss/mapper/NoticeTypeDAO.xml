@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iss.dao.NoticeTypeDAO">
+	<resultMap id="BaseResultMap" type="com.iss.modal.NoticeType">
+		<id column="noticeTypeId" jdbcType="INTEGER" property="noticetypeid" />
+		<result column="noticeTypeName" jdbcType="VARCHAR" property="noticetypename" />
+		<result column="noticeTypeRemark" jdbcType="VARCHAR" property="noticetyperemark" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		noticeTypeId, noticeTypeName, noticeTypeRemark
+	</sql>
+
+	<!-- 公告类型下拉 -->
+	<select id="selectAll" parameterType="com.iss.modal.NoticeType"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from noticetype
+		<where>
+			<if test="noticetypename != null">
+				and noticeTypeName like concat(concat('%',#{noticetypename}),'%')
+			</if>
+		</where>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from noticetype
+		where noticeTypeId = #{noticetypeid,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from noticetype
+		where noticeTypeId = #{noticetypeid,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.iss.modal.NoticeType">
+		insert into noticetype (noticeTypeId, noticeTypeName, noticeTypeRemark
+		)
+		values (#{noticetypeid,jdbcType=INTEGER},
+		#{noticetypename,jdbcType=VARCHAR},
+		#{noticetyperemark,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.iss.modal.NoticeType">
+		insert into noticetype
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="noticetypeid != null">
+				noticeTypeId,
+			</if>
+			<if test="noticetypename != null">
+				noticeTypeName,
+			</if>
+			<if test="noticetyperemark != null">
+				noticeTypeRemark,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="noticetypeid != null">
+				#{noticetypeid,jdbcType=INTEGER},
+			</if>
+			<if test="noticetypename != null">
+				#{noticetypename,jdbcType=VARCHAR},
+			</if>
+			<if test="noticetyperemark != null">
+				#{noticetyperemark,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.iss.modal.NoticeType">
+		update noticetype
+		<set>
+			<if test="noticetypename != null">
+				noticeTypeName = #{noticetypename,jdbcType=VARCHAR},
+			</if>
+			<if test="noticetyperemark != null">
+				noticeTypeRemark = #{noticetyperemark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where noticeTypeId = #{noticetypeid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.iss.modal.NoticeType">
+		update noticetype
+		set noticeTypeName = #{noticetypename,jdbcType=VARCHAR},
+		noticeTypeRemark = #{noticetyperemark,jdbcType=VARCHAR}
+		where noticeTypeId = #{noticetypeid,jdbcType=INTEGER}
+	</update>
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iss.dao.EmpNoticeDAO">
+  <resultMap id="BaseResultMap" type="com.iss.modal.EmpNotice">
+    <id column="empNoticeId" jdbcType="INTEGER" property="empnoticeid" />
+    <result column="empId" jdbcType="INTEGER" property="empid" />
+    <result column="noticeId" jdbcType="INTEGER" property="noticeid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    empNoticeId, empId, noticeId
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from empnotice
+    where empNoticeId = #{empnoticeid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from empnotice
+    where empNoticeId = #{empnoticeid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.iss.modal.EmpNotice">
+    insert into empnotice (empNoticeId, empId, noticeId
+      )
+    values (#{empnoticeid,jdbcType=INTEGER}, #{empid,jdbcType=INTEGER}, #{noticeid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.iss.modal.EmpNotice">
+    insert into empnotice
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="empnoticeid != null">
+        empNoticeId,
+      </if>
+      <if test="empid != null">
+        empId,
+      </if>
+      <if test="noticeid != null">
+        noticeId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="empnoticeid != null">
+        #{empnoticeid,jdbcType=INTEGER},
+      </if>
+      <if test="empid != null">
+        #{empid,jdbcType=INTEGER},
+      </if>
+      <if test="noticeid != null">
+        #{noticeid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iss.modal.EmpNotice">
+    update empnotice
+    <set>
+      <if test="empid != null">
+        empId = #{empid,jdbcType=INTEGER},
+      </if>
+      <if test="noticeid != null">
+        noticeId = #{noticeid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where empNoticeId = #{empnoticeid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iss.modal.EmpNotice">
+    update empnotice
+    set empId = #{empid,jdbcType=INTEGER},
+      noticeId = #{noticeid,jdbcType=INTEGER}
+    where empNoticeId = #{empnoticeid,jdbcType=INTEGER}
+  </update>
+</mapper>

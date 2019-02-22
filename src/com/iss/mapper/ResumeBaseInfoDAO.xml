@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iss.dao.ResumeBaseInfoDAO">
+	<resultMap id="BaseResultMap" type="com.iss.modal.ResumeBaseInfo">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="sex" jdbcType="VARCHAR" property="sex" />
+		<result column="age" jdbcType="VARCHAR" property="age" />
+		<result column="area" jdbcType="VARCHAR" property="area" />
+		<result column="date" jdbcType="VARCHAR" property="date" />
+		<result column="batch" jdbcType="VARCHAR" property="batch" />
+		<result column="page" jdbcType="VARCHAR" property="page" />
+		<result column="urlId" jdbcType="VARCHAR" property="urlid" />
+	</resultMap>
+	<resultMap id="ResultMapWithResume" type="com.iss.modal.ResumeInfo">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="sex" jdbcType="VARCHAR" property="sex" />
+		<result column="age" jdbcType="VARCHAR" property="age" />
+		<result column="area" jdbcType="VARCHAR" property="area" />
+		<result column="date" jdbcType="VARCHAR" property="date" />
+		<result column="batch" jdbcType="VARCHAR" property="batch" />
+		<result column="page" jdbcType="VARCHAR" property="page" />
+		<result column="urlId" jdbcType="VARCHAR" property="urlid" />
+		<result column="money" jdbcType="VARCHAR" property="money" />
+		<result column="experience" jdbcType="VARCHAR" property="experience" />
+		<result column="edu" jdbcType="VARCHAR" property="edu" />
+		<result column="willJob" jdbcType="VARCHAR" property="willjob" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, name, sex, age, area, date, batch, page, urlId
+	</sql>
+	<sql id="Resume_Column_List">
+		dbi.id, dbi.name, dbi.sex, dbi.age, dbi.area, dbi.date,
+		dbi.batch, dbi.page,
+		dbi.urlId,doi.money,doi.experience,doi.edu,doi.willjob,doi.nature
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from resumedatabaseinfo
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectAllRessume" parameterType="java.lang.String"
+		resultMap="ResultMapWithResume">
+		select
+		<include refid="Resume_Column_List" />
+		from resumedatabaseinfo dbi
+		inner join resumedataotherinfo doi
+		on
+		dbi.id=doi.id
+		<where>
+			<if test="name != null">
+				and dbi.name=#{name,jdbcType=VARCHAR}
+			</if>
+			<if test="sex != null">
+				and dbi.sex=#{sex,jdbcType=VARCHAR}
+			</if>
+			<if test="edu != null">
+				and doi.edu=#{edu,jdbcType=VARCHAR}
+			</if>
+			<if test="age != null">
+				and dbi.age=#{age,jdbcType=VARCHAR}
+			</if>
+			<if test="experience != null">
+				and doi.experience=#{experience,jdbcType=VARCHAR}
+			</if>
+			<if test="urlid != null">
+				and dbi.urlId=#{urlid,jdbcType=VARCHAR}
+			</if>
+		</where>
+		order by dbi.page,dbi.batch,dbi.date desc
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		resumedatabaseinfo
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.iss.modal.ResumeBaseInfo">
+		insert into resumedatabaseinfo
+		(id, name, sex,
+		age, area, date, batch,
+		page, urlId)
+		values
+		(#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+		#{sex,jdbcType=VARCHAR},
+		#{age,jdbcType=VARCHAR},
+		#{area,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR},
+		#{batch,jdbcType=VARCHAR},
+		#{page,jdbcType=VARCHAR},
+		#{urlid,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.iss.modal.ResumeBaseInfo">
+		insert into resumedatabaseinfo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="sex != null">
+				sex,
+			</if>
+			<if test="age != null">
+				age,
+			</if>
+			<if test="area != null">
+				area,
+			</if>
+			<if test="date != null">
+				date,
+			</if>
+			<if test="batch != null">
+				batch,
+			</if>
+			<if test="page != null">
+				page,
+			</if>
+			<if test="urlid != null">
+				urlId,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=VARCHAR},
+			</if>
+			<if test="age != null">
+				#{age,jdbcType=VARCHAR},
+			</if>
+			<if test="area != null">
+				#{area,jdbcType=VARCHAR},
+			</if>
+			<if test="date != null">
+				#{date,jdbcType=VARCHAR},
+			</if>
+			<if test="batch != null">
+				#{batch,jdbcType=VARCHAR},
+			</if>
+			<if test="page != null">
+				#{page,jdbcType=VARCHAR},
+			</if>
+			<if test="urlid != null">
+				#{urlid,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.iss.modal.ResumeBaseInfo">
+		update resumedatabaseinfo
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				sex = #{sex,jdbcType=VARCHAR},
+			</if>
+			<if test="age != null">
+				age = #{age,jdbcType=VARCHAR},
+			</if>
+			<if test="area != null">
+				area = #{area,jdbcType=VARCHAR},
+			</if>
+			<if test="date != null">
+				date = #{date,jdbcType=VARCHAR},
+			</if>
+			<if test="batch != null">
+				batch = #{batch,jdbcType=VARCHAR},
+			</if>
+			<if test="page != null">
+				page = #{page,jdbcType=VARCHAR},
+			</if>
+			<if test="urlid != null">
+				urlId = #{urlid,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.iss.modal.ResumeBaseInfo">
+		update
+		resumedatabaseinfo
+		set name = #{name,jdbcType=VARCHAR},
+		sex =
+		#{sex,jdbcType=VARCHAR},
+		age = #{age,jdbcType=VARCHAR},
+		area =
+		#{area,jdbcType=VARCHAR},
+		date = #{date,jdbcType=VARCHAR},
+		batch =
+		#{batch,jdbcType=VARCHAR},
+		page = #{page,jdbcType=VARCHAR},
+		urlId =
+		#{urlid,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="truncateTableData">
+		truncate table resumedatabaseinfo
+	</update>
+</mapper>

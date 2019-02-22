@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iss.dao.EducationInfoMapper">
+  <resultMap id="BaseResultMap" type="com.iss.modal.EducationInfoWrapper">
+    <id column="eduId" jdbcType="INTEGER" property="eduid" />
+    <result column="startTime" jdbcType="DATE" property="starttime" />
+    <result column="endTime" jdbcType="DATE" property="endtime" />
+    <result column="school" jdbcType="VARCHAR" property="school" />
+    <result column="major" jdbcType="VARCHAR" property="major" />
+    <association property="degree"   column="degreeId" 
+    javaType="com.iss.modal.DictValue"  
+     select="com.iss.dao.DictValueMapper.selectByPrimaryKey"></association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    eduId, startTime, endTime, school, major, degreeId
+  </sql>
+  
+  <!-- 查询所有 -->
+  <select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_education
+  </select>
+  
+  <!-- 分页 -->
+  <select id="selectPage" parameterType="com.iss.modal.EduQueryParam" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_education
+    <where>
+    	<if test="schoolName !=null">
+    	and school like CONCAT('%',#{schoolName},'%')<!-- CONCAT字符串拼接 -->
+    	</if>
+    </where>
+     limit #{offset},#{limit}
+  </select>
+  
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_education
+    where eduId = #{eduid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_education
+    where eduId = #{eduid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.iss.modal.EducationInfo">
+    insert into t_education (eduId, startTime, endTime, 
+      school, major, degreeId
+      )
+    values (#{eduid,jdbcType=INTEGER}, #{starttime,jdbcType=DATE}, #{endtime,jdbcType=DATE}, 
+      #{school,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, #{degreeid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.iss.modal.EducationInfo">
+    insert into t_education
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="eduid != null">
+        eduId,
+      </if>
+      <if test="starttime != null">
+        startTime,
+      </if>
+      <if test="endtime != null">
+        endTime,
+      </if>
+      <if test="school != null">
+        school,
+      </if>
+      <if test="major != null">
+        major,
+      </if>
+      <if test="degreeid != null">
+        degreeId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="eduid != null">
+        #{eduid,jdbcType=INTEGER},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=DATE},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=DATE},
+      </if>
+      <if test="school != null">
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="degreeid != null">
+        #{degreeid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iss.modal.EducationInfo">
+    update t_education
+    <set>
+      <if test="starttime != null">
+        startTime = #{starttime,jdbcType=DATE},
+      </if>
+      <if test="endtime != null">
+        endTime = #{endtime,jdbcType=DATE},
+      </if>
+      <if test="school != null">
+        school = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        major = #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="degreeid != null">
+        degreeId = #{degreeid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where eduId = #{eduid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iss.modal.EducationInfo">
+    update t_education
+    set startTime = #{starttime,jdbcType=DATE},
+      endTime = #{endtime,jdbcType=DATE},
+      school = #{school,jdbcType=VARCHAR},
+      major = #{major,jdbcType=VARCHAR},
+      degreeId = #{degreeid,jdbcType=INTEGER}
+    where eduId = #{eduid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,65 @@
+body{
+	margin: auto;
+}
+
+.nav{
+	width: auto;
+	height: 65px;
+}
+
+.nav img{
+	margin-top: 18px;
+	margin-left: 15px;
+}
+
+.nav span{
+	font-size: 20px;
+	font-family: "微软雅黑";
+	margin-left: 15px;
+}
+
+.nav select{
+	border: hidden;
+	font-size: 15px;
+	float: right;
+	margin-top: 35px;
+}
+
+#main{
+	width: auto;
+	height: 700px;
+}
+
+#div1{
+	width: 300px;
+}
+
+#div2{
+	height: 300px;
+}
+
+#div3{
+	height: 200px;
+}
+
+.List li{
+	list-style: none;
+	text-decoration: none;
+}
+
+.List li a{
+	text-decoration: none;
+}
+
+#div4{
+	height: 200px;
+}
+
+#content{
+	padding: 5px;
+}
+
+#div5{
+	padding: 10px;
+	height: 200px;
+}

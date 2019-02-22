@@ -1,0 +1,55 @@
+{
+	"total": 28,
+	"rows": [
+		{
+			"deptId": 1,
+			"deptNO": "issNO000",
+			"deptName": "非凡科技",
+			"dpPhone": null,
+			"dpProfile": null,
+			"superName": 0
+		}, {
+			"deptId": 2,
+			"deptNO": "issNO001",
+			"deptName": "人事部",
+			"dpPhone": null,
+			"dpProfile": null,
+			"superName": 1
+		}, {
+			"deptId": 3,
+			"deptNO": "issNO001",
+			"deptName": "财务部",
+			"dpPhone": null,
+			"dpProfile": null,
+			"superName": 1
+		}, {
+			"deptId": 4,
+			"deptNO": "issNO001",
+			"deptName": "开发部",
+			"dpPhone": null,
+			"dpProfile": null,
+			"superName": 1
+		}, {
+			"deptId": 5,
+			"deptNO": "issNO001",
+			"deptName": "市场部",
+			"dpPhone": null,
+			"dpProfile": null,
+			"superName": 1
+		}, {
+			"deptId": 6,
+			"deptNO": "issNO001",
+			"deptName": "市场一部",
+			"dpPhone": null,
+			"dpProfile": null,
+			"superName": 5
+		}, {
+			"deptId": 7,
+			"deptNO": "issNO001",
+			"deptName": "市场二部",
+			"dpPhone": null,
+			"dpProfile": null,
+			"superName": 5
+		}
+	]
+}

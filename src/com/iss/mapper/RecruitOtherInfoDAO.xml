@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iss.dao.RecruitOtherInfoDAO">
+	<resultMap id="BaseResultMap" type="com.iss.modal.RecruitOtherInfo">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="companyNature" jdbcType="VARCHAR" property="companynature" />
+		<result column="companyScale" jdbcType="VARCHAR" property="companyscale" />
+		<result column="experience" jdbcType="VARCHAR" property="experience" />
+		<result column="education" jdbcType="VARCHAR" property="education" />
+		<result column="jobdescription" jdbcType="VARCHAR" property="jobdescription" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		 id,companyNature, companyScale, experience, education, jobdescription
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from recruitdataotherinfo
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from recruitdataotherinfo
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.iss.modal.RecruitOtherInfo">
+		insert into recruitdataotherinfo (id, companyNature, companyScale,
+		experience, education, jobdescription
+		)
+		values (#{id,jdbcType=INTEGER}, #{companynature,jdbcType=VARCHAR},
+		#{companyscale,jdbcType=VARCHAR},
+		#{experience,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, #{jobdescription,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.iss.modal.RecruitOtherInfo">
+		insert into recruitdataotherinfo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="companynature != null">
+				companyNature,
+			</if>
+			<if test="companyscale != null">
+				companyScale,
+			</if>
+			<if test="experience != null">
+				experience,
+			</if>
+			<if test="education != null">
+				education,
+			</if>
+			<if test="jobdescription != null">
+				jobdescription,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="companynature != null">
+				#{companynature,jdbcType=VARCHAR},
+			</if>
+			<if test="companyscale != null">
+				#{companyscale,jdbcType=VARCHAR},
+			</if>
+			<if test="experience != null">
+				#{experience,jdbcType=VARCHAR},
+			</if>
+			<if test="education != null">
+				#{education,jdbcType=VARCHAR},
+			</if>
+			<if test="jobdescription != null">
+				#{jobdescription,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.iss.modal.RecruitOtherInfo">
+		update recruitdataotherinfo
+		<set>
+			<if test="companynature != null">
+				companyNature = #{companynature,jdbcType=VARCHAR},
+			</if>
+			<if test="companyscale != null">
+				companyScale = #{companyscale,jdbcType=VARCHAR},
+			</if>
+			<if test="experience != null">
+				experience = #{experience,jdbcType=VARCHAR},
+			</if>
+			<if test="education != null">
+				education = #{education,jdbcType=VARCHAR},
+			</if>
+			<if test="jobdescription != null">
+				jobdescription = #{jobdescription,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.iss.modal.RecruitOtherInfo">
+		update recruitdataotherinfo
+		set companyNature = #{companynature,jdbcType=VARCHAR},
+		companyScale = #{companyscale,jdbcType=VARCHAR},
+		experience = #{experience,jdbcType=VARCHAR},
+		education = #{education,jdbcType=VARCHAR},
+		jobdescription = #{jobdescription,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="truncateTableData">
+		truncate table recruitdataotherinfo;
+	</update>
+</mapper>

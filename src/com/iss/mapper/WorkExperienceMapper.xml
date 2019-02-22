@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iss.dao.WorkExperienceMapper">
+  <resultMap id="BaseResultMap" type="com.iss.modal.WorkExperience">
+    <id column="workexperienceId" jdbcType="INTEGER" property="workexperienceid" />
+    <result column="startTime" jdbcType="DATE" property="starttime" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="position" jdbcType="VARCHAR" property="position" />
+    <result column="endTime" jdbcType="DATE" property="endtime" />
+     <result column="basicInfoId" jdbcType="VARCHAR" property="basicinfoid" />
+    
+  </resultMap>
+  <sql id="Base_Column_List">
+    workexperienceId, startTime, company, position, endTime, basicInfoId
+  </sql>
+  
+  <!--查询所有  -->
+  <select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_workexperience
+   
+  </select>
+  
+  <!--分页模糊查询  -->
+  <select id="selectPage" parameterType="com.iss.modal.WorkQueryParam" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_workexperience
+     <where>
+    	<if test="companyName !=null">
+    	and company like CONCAT('%',#{companyName},'%')<!-- CONCAT字符串拼接 -->
+    	</if>
+    </where>
+     limit #{offset},#{limit}
+   
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_workexperience
+    where workexperienceId = #{workexperienceid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_workexperience
+    where workexperienceId = #{workexperienceid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.iss.modal.WorkExperience">
+    insert into t_workexperience (workexperienceId, startTime, company, 
+      position, endTime, basicInfoId
+      )
+    values (#{workexperienceid,jdbcType=INTEGER}, #{starttime,jdbcType=DATE}, #{company,jdbcType=VARCHAR}, 
+      #{position,jdbcType=VARCHAR}, #{endtime,jdbcType=DATE}, #{basicinfoid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.iss.modal.WorkExperience">
+    insert into t_workexperience
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="workexperienceid != null">
+        workexperienceId,
+      </if>
+      <if test="starttime != null">
+        startTime,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="position != null">
+        position,
+      </if>
+      <if test="endtime != null">
+        endTime,
+      </if>
+      <if test="basicinfoid != null">
+        basicInfoId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="workexperienceid != null">
+        #{workexperienceid,jdbcType=INTEGER},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=DATE},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=DATE},
+      </if>
+      <if test="basicinfoid != null">
+        #{basicinfoid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iss.modal.WorkExperience">
+    update t_workexperience
+    <set>
+      <if test="starttime != null">
+        startTime = #{starttime,jdbcType=DATE},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null">
+        endTime = #{endtime,jdbcType=DATE},
+      </if>
+      <if test="basicinfoid != null">
+        basicInfoId = #{basicinfoid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where workexperienceId = #{workexperienceid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iss.modal.WorkExperience">
+    update t_workexperience
+    set startTime = #{starttime,jdbcType=DATE},
+      company = #{company,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      endTime = #{endtime,jdbcType=DATE},
+      basicInfoId = #{basicinfoid,jdbcType=VARCHAR}
+    where workexperienceId = #{workexperienceid,jdbcType=INTEGER}
+  </update>
+</mapper>

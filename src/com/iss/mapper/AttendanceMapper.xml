@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iss.dao.AttendanceMapper">
+  <resultMap id="BaseResultMap" type="com.iss.modal.AttendanceWrapper">
+    <id column="attendanceId" jdbcType="INTEGER" property="attendanceid" />
+<!--     <result column="empId" jdbcType="INTEGER" property="empid" /> -->
+    <result column="attDate" jdbcType="DATE" property="attdate" />
+    <result column="attendace_time" jdbcType="TIMESTAMP" property="attendaceTime" />
+    <result column="closeing_time" jdbcType="TIMESTAMP" property="closeingTime" />
+    <result column="isLate" jdbcType="BIT" property="islate" />
+    <result column="isTardy" jdbcType="BIT" property="istardy" />
+    <result column="isLeave" jdbcType="BIT" property="isleave" />
+    <association property="employee" column="empId" javaType="com.iss.modal.Employee" select="com.iss.dao.EmployeeMapper.selectByPrimaryKey"></association><!-- 列名为替换的empId -->
+  </resultMap>
+  <sql id="Base_Column_List">
+    attendanceId, empId, attDate, attendace_time, closeing_time, isLate, isTardy, isLeave
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_attendance
+    where attendanceId = #{attendanceid,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查询Table表中的数据 -->
+  <select id="selectALL" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from t_attendance
+  </select>
+  <!-- 分页及模糊查询 -->
+  <select id="selectPage" parameterType="com.iss.modal.AttendanceQueryParam" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from t_attendance
+    <where>
+    	<if test="empName != null">
+				and empName like CONCAT('%','${empName}','%')  
+			</if>
+    </where>
+    limit #{offset},#{limit}
+  </select>
+  
+
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_attendance
+    where attendanceId = #{attendanceid,jdbcType=INTEGER}
+  </delete>
+<!--     <delete id="delete" parameterType="java.lang.Integer"> -->
+<!--     delete from t_attendance -->
+<!--     where attendanceId = #{attendanceid,jdbcType=INTEGER} -->
+<!--   </delete> -->
+  <insert id="insert" parameterType="com.iss.modal.Attendance">
+    insert into t_attendance (attendanceId, empId, attDate, 
+      attendace_time, closeing_time, isLate, 
+      isTardy, isLeave)
+    values (#{attendanceid,jdbcType=INTEGER}, #{empid,jdbcType=INTEGER}, #{attdate,jdbcType=DATE}, 
+      #{attendaceTime,jdbcType=TIMESTAMP}, #{closeingTime,jdbcType=TIMESTAMP}, #{islate,jdbcType=BIT}, 
+      #{istardy,jdbcType=BIT}, #{isleave,jdbcType=BIT})
+  </insert>
+  <!-- 添加数据模态框的添加 -->
+<!--     <insert id="save" parameterType="com.iss.modal.Attendance"> -->
+<!--     insert into t_attendance (attendanceId, empId, attDate,  -->
+<!--       attendace_time, closeing_time, isLate,  -->
+<!--       isTardy, isLeave) -->
+<!--     values (#{attendanceid,jdbcType=INTEGER}, #{empid,jdbcType=INTEGER}, #{attdate,jdbcType=DATE},  -->
+<!--       #{attendaceTime,jdbcType=TIMESTAMP}, #{closeingTime,jdbcType=TIMESTAMP}, #{islate,jdbcType=BIT},  -->
+<!--       #{istardy,jdbcType=BIT}, #{isleave,jdbcType=BIT}) -->
+<!--     </insert> -->
+  
+  <insert id="insertSelective" parameterType="com.iss.modal.Attendance">
+    insert into t_attendance
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="attendanceid != null">
+        attendanceId,
+      </if>
+      <if test="empid != null">
+        empId,
+      </if>
+      <if test="attdate != null">
+        attDate,
+      </if>
+      <if test="attendaceTime != null">
+        attendace_time,
+      </if>
+      <if test="closeingTime != null">
+        closeing_time,
+      </if>
+      <if test="islate != null">
+        isLate,
+      </if>
+      <if test="istardy != null">
+        isTardy,
+      </if>
+      <if test="isleave != null">
+        isLeave,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="attendanceid != null">
+        #{attendanceid,jdbcType=INTEGER},
+      </if>
+      <if test="empid != null">
+        #{empid,jdbcType=INTEGER},
+      </if>
+      <if test="attdate != null">
+        #{attdate,jdbcType=DATE},
+      </if>
+      <if test="attendaceTime != null">
+        #{attendaceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closeingTime != null">
+        #{closeingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="islate != null">
+        #{islate,jdbcType=BIT},
+      </if>
+      <if test="istardy != null">
+        #{istardy,jdbcType=BIT},
+      </if>
+      <if test="isleave != null">
+        #{isleave,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iss.modal.Attendance">
+    update t_attendance
+    <set>
+      <if test="empid != null">
+        empId = #{empid,jdbcType=INTEGER},
+      </if>
+      <if test="attdate != null">
+        attDate = #{attdate,jdbcType=DATE},
+      </if>
+      <if test="attendaceTime != null">
+        attendace_time = #{attendaceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closeingTime != null">
+        closeing_time = #{closeingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="islate != null">
+        isLate = #{islate,jdbcType=BIT},
+      </if>
+      <if test="istardy != null">
+        isTardy = #{istardy,jdbcType=BIT},
+      </if>
+      <if test="isleave != null">
+        isLeave = #{isleave,jdbcType=BIT},
+      </if>
+    </set>
+    where attendanceId = #{attendanceid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iss.modal.Attendance">
+    update t_attendance
+    set empId = #{empid,jdbcType=INTEGER},
+      attDate = #{attdate,jdbcType=DATE},
+      attendace_time = #{attendaceTime,jdbcType=TIMESTAMP},
+      closeing_time = #{closeingTime,jdbcType=TIMESTAMP},
+      isLate = #{islate,jdbcType=BIT},
+      isTardy = #{istardy,jdbcType=BIT},
+      isLeave = #{isleave,jdbcType=BIT}
+    where attendanceId = #{attendanceid,jdbcType=INTEGER}
+  </update>
+</mapper>

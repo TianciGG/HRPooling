@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iss.dao.SalaryMapper">
+  <resultMap id="BaseResultMap" type="com.iss.modal.SalaryWrapper">
+    <id column="salaryId" jdbcType="INTEGER" property="salaryid" />
+   <!--  <result column="empId" jdbcType="INTEGER" property="empid" /> -->
+    <result column="salary" jdbcType="DECIMAL" property="salary" />
+    
+    <association property="employee" column="empId" javaType="com.iss.modal.Employee" 
+    select="com.iss.dao.EmployeeMapper.selectByPrimaryKey"></association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    salaryId, empId, salary
+  </sql>
+  <!-- 查询所有 -->
+  <select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_salary
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_salary
+    where salaryId = #{salaryid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_salary
+    where salaryId = #{salaryid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.iss.modal.Salary">
+    insert into t_salary (salaryId, empId, salary
+      )
+    values (#{salaryid,jdbcType=INTEGER}, #{empid,jdbcType=INTEGER}, #{salary,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.iss.modal.Salary">
+    insert into t_salary
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="salaryid != null">
+        salaryId,
+      </if>
+      <if test="empid != null">
+        empId,
+      </if>
+      <if test="salary != null">
+        salary,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="salaryid != null">
+        #{salaryid,jdbcType=INTEGER},
+      </if>
+      <if test="empid != null">
+        #{empid,jdbcType=INTEGER},
+      </if>
+      <if test="salary != null">
+        #{salary,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iss.modal.Salary">
+    update t_salary
+    <set>
+      <if test="empid != null">
+        empId = #{empid,jdbcType=INTEGER},
+      </if>
+      <if test="salary != null">
+        salary = #{salary,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where salaryId = #{salaryid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iss.modal.Salary">
+    update t_salary
+    set empId = #{empid,jdbcType=INTEGER},
+      salary = #{salary,jdbcType=DECIMAL}
+    where salaryId = #{salaryid,jdbcType=INTEGER}
+  </update>
+</mapper>
